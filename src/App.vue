@@ -4,7 +4,7 @@
       <h2>VCF Generator</h2>
       <section v-if="step === 1">
         <div class="mb-3">
-          <label class="form-label">Copy paste csv data from spreadsheet</label>
+          <label class="form-label">Copy paste csv data ( including column heading ) from spreadsheet </label>
           <textarea class="form-control" rows="10" v-model="csvStr"></textarea>
         </div>
         <button class="btn btn-primary" @click="step = 2">Next</button>
@@ -39,10 +39,11 @@
         <div class="col-md-12">
           <strong>Available Columns</strong>
           <br />
-          <span class="float" v-for="col in availableCols">
-            <code>{{ col }}</code
-            >,
+          <div class="pb-3">
+          <span class="mx-1" v-for="col in availableCols">
+            <span class="badge rounded-pill text-bg-warning">{{col}}</span>
           </span>
+          </div>
         </div>
         <div class="row">
           <div class="col-sm-12 col-md-6">
@@ -57,7 +58,11 @@
                     v-model="form.nameFmt"
                   />
                   <div class="invalid-feedback">
-                    example: {{ nameFmtSample }}
+                    example:
+                    <ul>
+                      <li><pre>{{nameFmtSample}} </pre></li>
+                      <li><pre>myprefix-{mycolum1}-{mycolumn2}-mysuffix</pre></li>
+                    </ul>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -68,7 +73,11 @@
                     v-model="form.phoneFmt"
                   />
                   <div class="invalid-feedback">
-                    example: {{ phoneFmtSample }}
+                    example:
+                    <ul>
+                      <li><pre>{{phoneFmtSample}} </pre></li>
+                      <li><pre>+91-{area-code}-{landline-no}</pre></li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -145,7 +154,7 @@ END:VCARD`;
 
     phoneFmtSample() {
       const allCols = this.availableCols;
-      const nameCol = allCols.find((v) => v.match(/phone/i)) || allCols[0];
+      const nameCol = allCols.find((v) => v.match(/(phone|mob|cel)/i)) || allCols[0];
       return `+91-{${nameCol}}`;
     },
 
