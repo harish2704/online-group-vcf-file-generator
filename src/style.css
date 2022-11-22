@@ -1,0 +1,5 @@
+
+.csv-preview{
+  max-height: 60vh;
+  overflow: scroll;
+}
