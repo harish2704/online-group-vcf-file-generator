@@ -1,10 +1,10 @@
 <template>
   <main>
     <div class="py-5">
-      <h2>Vcf generator</h2>
+      <h2>VCF Generator</h2>
       <section v-if="step === 1">
         <div class="mb-3">
-          <label class="form-label">Paste csv data</label>
+          <label class="form-label">Copy paste csv data from spreadsheet</label>
           <textarea class="form-control" rows="10" v-model="csvStr"></textarea>
         </div>
         <button class="btn btn-primary" @click="step = 2">Next</button>
